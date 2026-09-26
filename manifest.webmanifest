@@ -1,0 +1,28 @@
+{
+  "name": "Шёпот — анонимный чат",
+  "short_name": "Шёпот",
+  "description": "Анонимный текстовый чат-рулетка: найди собеседника по полу и возрасту и общайся шёпотом.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "lang": "ru",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "categories": ["social", "communication"],
+  "icons": [
+    { "src": "icons/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Найти собеседника",
+      "url": "./?tab=roulette",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
