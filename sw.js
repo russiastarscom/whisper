@@ -1,7 +1,7 @@
 /* Шёпот — service worker (PWA)
    Стратегия: сеть в приоритете; кэш — только офлайн-фолбэк.
    Так приложение всегда получает свежие чанки, а офлайн остаётся работоспособным. */
-const VERSION = 'shpot-v11';
+const VERSION = 'shpot-v12';
 /* BASE = каталог, где лежит сам SW (scope): '/' на корневом хостинге
    или '/whisper/' на GitHub Pages — все пути считаем от него. */
 const BASE = new URL('./', self.registration.scope).pathname;
@@ -28,6 +28,35 @@ self.addEventListener('activate', (event) => {
     caches.keys()
       .then((keys) => Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
+  );
+});
+
+/* ---- Web Push (Task 40): payload-less пуш — контент задаём сами ---- */
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (_) { /* пустой/нечитаемый пейлоад */ }
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'Шёпот', {
+      body: data.body || 'Новое сообщение — откройте, чтобы прочитать',
+      icon: BASE + 'icons/icon-192.png',
+      badge: BASE + 'icons/icon-192.png',
+      tag: data.tag || 'shpot-msg',
+      renotify: true,
+      data: { url: data.url || BASE },
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const target = (event.notification.data && event.notification.data.url) || BASE;
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((cs) => {
+      for (const c of cs) {
+        if ('focus' in c) return c.focus();
+      }
+      return self.clients.openWindow(target);
+    })
   );
 });
 
