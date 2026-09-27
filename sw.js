@@ -1,7 +1,7 @@
 /* Шёпот — service worker (PWA)
    Стратегия: сеть в приоритете; кэш — только офлайн-фолбэк.
    Так приложение всегда получает свежие чанки, а офлайн остаётся работоспособным. */
-const VERSION = 'shpot-v6';
+const VERSION = 'shpot-v7';
 /* BASE = каталог, где лежит сам SW (scope): '/' на корневом хостинге
    или '/whisper/' на GitHub Pages — все пути считаем от него. */
 const BASE = new URL('./', self.registration.scope).pathname;
