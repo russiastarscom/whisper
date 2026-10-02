@@ -5,7 +5,7 @@
    браузер инвалидировал подписку → SW молча переподписывается и будит
    открытые вкладки обновить запись в БД (нет вкладок — обновит syncPush
    OnLogin при следующем входе). */
-const VERSION = 'shpot-v21';
+const VERSION = 'shpot-v22';
 /* BASE = каталог, где лежит сам SW (scope): '/' на корневом хостинге
    или '/whisper/' на GitHub Pages — все пути считаем от него. */
 const BASE = new URL('./', self.registration.scope).pathname;
